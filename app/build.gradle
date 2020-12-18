@@ -57,6 +57,13 @@ dependencies {
     // Encrypted SharedPrefs
     implementation "androidx.security:security-crypto:$crypto_version"
 
+    // Navigation components
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+    // Fragments
+    implementation "androidx.fragment:fragment-ktx:$fragment_version"
+
     // Testing dependencies
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
