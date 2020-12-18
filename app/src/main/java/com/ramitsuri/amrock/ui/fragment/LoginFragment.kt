@@ -33,6 +33,20 @@ class LoginFragment : BaseFragment() {
         binding.btnLogin.setOnClickListener {
             handleLoginClicked()
         }
+
+        binding.btnHelp.setOnClickListener {
+            invokeLoginHelp(false)
+        }
+    }
+
+    private fun invokeLoginHelp(showError: Boolean) {
+        val fragment = LoginHelpFragment.newInstance()
+        val bundle = Bundle()
+        bundle.putBoolean(LoginHelpFragment.SHOW_ERROR, showError)
+        fragment.arguments = bundle
+        activity?.supportFragmentManager?.let { supportFragmentManager ->
+            fragment.show(supportFragmentManager, LoginHelpFragment.TAG)
+        }
     }
 
     private fun handleLoginClicked() {

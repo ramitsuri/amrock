@@ -14,7 +14,7 @@ import com.ramitsuri.amrock.R
 import timber.log.Timber
 
 abstract class BaseFragment : Fragment() {
-    private val TAG = this.javaClass.simpleName
+    private val TAG: String = this::class.java.simpleName
 
     override fun onAttach(context: Context) {
         super.onAttach(context)

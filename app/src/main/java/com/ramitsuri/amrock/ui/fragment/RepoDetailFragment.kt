@@ -7,6 +7,7 @@ import android.webkit.WebViewClient
 import androidx.activity.OnBackPressedCallback
 import androidx.navigation.findNavController
 import com.ramitsuri.amrock.databinding.FragmentRepoDetailBinding
+import com.ramitsuri.amrock.entities.RepositoryInfo
 import timber.log.Timber
 
 
@@ -52,6 +53,11 @@ class RepoDetailFragment : BaseFragment() {
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun setupViews() {
+        val args = arguments
+        var repositoryInfo: RepositoryInfo? = null
+        if (args != null) {
+            repositoryInfo = RepoDetailFragmentArgs.fromBundle(args).repositoryInfo
+        }
         binding.webView.webViewClient = WebViewClient()
         binding.webView.settings.javaScriptEnabled = true
         binding.webView.canGoBack()
@@ -63,12 +69,14 @@ class RepoDetailFragment : BaseFragment() {
             false
         })
 
-        binding.btnList.setOnClickListener {
+        binding.btnBack.setOnClickListener {
             it.findNavController()
                 .navigateUp()
         }
 
-        loadRepo("https://github.com/QuickenLoans/Behaviors.js")
+        if (repositoryInfo?.url != null) {
+            loadRepo(repositoryInfo.url)
+        }
     }
 
     private fun loadRepo(url: String) {

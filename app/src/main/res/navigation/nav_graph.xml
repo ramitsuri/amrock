@@ -26,7 +26,13 @@
 
         <action
             android:id="@+id/nav_action_repo_detail"
-            app:destination="@id/fragment_repo_detail" />
+            app:destination="@id/fragment_repo_detail">
+            <argument
+                android:name="repositoryInfo"
+                android:defaultValue="@null"
+                app:argType="com.ramitsuri.amrock.entities.RepositoryInfo"
+                app:nullable="true" />
+        </action>
 
         <action
             android:id="@+id/nav_action_logout"
@@ -39,7 +45,11 @@
         android:id="@+id/fragment_repo_detail"
         android:name="com.ramitsuri.amrock.ui.fragment.RepoDetailFragment"
         tools:layout="@layout/fragment_repo_detail">
-
+        <argument
+            android:name="repositoryInfo"
+            android:defaultValue="@null"
+            app:argType="com.ramitsuri.amrock.entities.RepositoryInfo"
+            app:nullable="true" />
         <action
             android:id="@+id/nav_action_logout"
             app:destination="@id/fragment_login"
