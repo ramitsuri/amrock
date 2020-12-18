@@ -4,16 +4,23 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.ramitsuri.amrock.App
 import com.ramitsuri.amrock.R
+import com.ramitsuri.amrock.auth.AuthResult
 import com.ramitsuri.amrock.databinding.FragmentLoginBinding
+import com.ramitsuri.amrock.viewmodel.LoginViewModel
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import timber.log.Timber
 
 class LoginFragment : BaseFragment() {
     private var _binding: FragmentLoginBinding? = null
 
     private val binding get() = _binding!!
+    private lateinit var viewModel: LoginViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -26,12 +33,20 @@ class LoginFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val factory = App.instance.injector.getLoginViewModelFactory()
+        viewModel = ViewModelProvider(this, factory).get(LoginViewModel::class.java)
         setupViews()
     }
 
     private fun setupViews() {
+        binding.editEmail.setText(viewModel.getEmail())
+        binding.editEmail.setSelection(binding.editEmail.length())
+
+        binding.editPassword.setText(viewModel.getPassword())
+        binding.editPassword.setSelection(binding.editPassword.length())
+
         binding.btnLogin.setOnClickListener {
-            handleLoginClicked()
+            handleLoginClicked(getEmail(), getPassword())
         }
 
         binding.btnHelp.setOnClickListener {
@@ -49,9 +64,38 @@ class LoginFragment : BaseFragment() {
         }
     }
 
-    private fun handleLoginClicked() {
-        App.instance.loginManager.setLoggedIn(true)
-        findNavController()
-            .navigate(R.id.nav_action_repositories)
+    private fun handleLoginClicked(email: String, password: String) {
+        context?.let { context ->
+            hideKeyboard(context, binding.editEmail)
+            binding.editEmail.clearFocus()
+            binding.editPassword.clearFocus()
+        }
+
+        lifecycleScope.launch {
+            viewModel.login(email, password).collect { authResult ->
+                when (authResult) {
+                    AuthResult.Loading -> {
+                        binding.progress.visibility = View.VISIBLE
+                    }
+                    AuthResult.Success -> {
+                        binding.progress.visibility = View.GONE
+                        findNavController()
+                            .navigate(R.id.nav_action_repositories)
+                    }
+                    else -> {
+                        binding.progress.visibility = View.GONE
+                        invokeLoginHelp(true)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun getEmail(): String {
+        return binding.editEmail.text.toString().trim()
+    }
+
+    private fun getPassword(): String {
+        return binding.editPassword.text.toString()
     }
 }

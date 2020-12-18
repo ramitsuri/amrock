@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -98,8 +99,14 @@ abstract class BaseFragment : Fragment() {
         }
     }
 
+    protected fun hideKeyboard(context: Context, view: View) {
+        val imm: InputMethodManager =
+            context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
+    }
+
     protected fun requireLogin(): Boolean {
-        return App.instance.loginManager.requireLogin()
+        return App.instance.injector.loginManager.requireLogin()
     }
 
     protected fun navigateToLogin() {

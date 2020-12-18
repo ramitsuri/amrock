@@ -5,45 +5,45 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.OnLifecycleEvent
 import androidx.lifecycle.ProcessLifecycleOwner
-import com.ramitsuri.amrock.auth.LoginManager
+import com.ramitsuri.amrock.dependency.Injector
 import timber.log.Timber
 import java.time.Instant
 
 class App : Application(), LifecycleObserver {
-    lateinit var loginManager: LoginManager
+    lateinit var injector: Injector
 
     override fun onCreate() {
         super.onCreate()
         instance = this
+        initInjector()
         initLogging()
-        initLoginManager()
         initLifecycleObserver()
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     private fun onAppCreated() {
         Timber.i("App created")
-        loginManager.setLoggedIn(false)
+        injector.loginManager.setLoggedIn(false)
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_START)
     private fun onAppForegrounded() {
         Timber.i("App foregrounded")
-        loginManager.onAppForegrounded(Instant.now())
+        injector.loginManager.onAppForegrounded(Instant.now())
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_STOP)
     private fun onAppBackgrounded() {
         Timber.i("App backgrounded")
-        loginManager.onAppBackgrounded(Instant.now())
+        injector.loginManager.onAppBackgrounded(Instant.now())
+    }
+
+    private fun initInjector() {
+        injector = Injector(this)
     }
 
     private fun initLogging() {
         Timber.plant(Timber.DebugTree())
-    }
-
-    private fun initLoginManager() {
-        loginManager = LoginManager(this)
     }
 
     private fun initLifecycleObserver() {

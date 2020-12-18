@@ -1,17 +1,9 @@
 package com.ramitsuri.amrock.auth
 
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
-
 class LocalAuthService(private val validator: AuthValidator) : AuthService {
 
-    override suspend fun login(credentials: Credentials): Flow<AuthResult> {
-        return flow {
-            emit(AuthResult.Loading)
-            delay(2000)
-            emit(getAuthResult(credentials))
-        }
+    override suspend fun login(credentials: Credentials): AuthResult {
+        return getAuthResult(credentials)
     }
 
     private fun getAuthResult(credentials: Credentials): AuthResult {
