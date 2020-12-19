@@ -8,10 +8,18 @@ import com.ramitsuri.amrock.R
 import com.ramitsuri.amrock.entities.RepositoryInfo
 import com.ramitsuri.amrock.databinding.RepositoryItemBinding
 
-class RepositoryAdapter(private val list: List<RepositoryInfo>) :
+class RepositoryAdapter(private val list: MutableList<RepositoryInfo>) :
     RecyclerView.Adapter<RepositoryAdapter.ViewHolder>() {
 
     var onItemClick: ((RepositoryInfo) -> Unit)? = null
+
+    fun update(newList: List<RepositoryInfo>) {
+        list.apply {
+            clear()
+            addAll(newList)
+        }
+        notifyDataSetChanged()
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val itemBinding =

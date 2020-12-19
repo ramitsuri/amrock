@@ -66,6 +66,11 @@ dependencies {
     // Fragments
     implementation "androidx.fragment:fragment-ktx:$fragment_version"
 
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+    implementation "com.squareup.okhttp3:logging-interceptor:$okhttpLogging_version"
+
     // Testing dependencies
     testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
