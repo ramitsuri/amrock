@@ -112,12 +112,12 @@ class RepositoriesFragment : BaseFragment() {
     }
 
     private fun showError(message: String) {
-        val fragment = RepositoriesErrorFragment.newInstance()
+        val fragment = ErrorFragment.newInstance()
         val bundle = Bundle()
-        bundle.putString(RepositoriesErrorFragment.MESSAGE, message)
+        bundle.putString(ErrorFragment.MESSAGE, message)
         fragment.arguments = bundle
         activity?.supportFragmentManager?.let { supportFragmentManager ->
-            fragment.show(supportFragmentManager, RepositoriesErrorFragment.TAG)
+            fragment.show(supportFragmentManager, ErrorFragment.TAG)
         }
     }
 }

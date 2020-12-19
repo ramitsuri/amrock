@@ -9,14 +9,14 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.ramitsuri.amrock.R
 
 
-class RepositoriesErrorFragment private constructor() : BottomSheetDialogFragment() {
+class ErrorFragment private constructor() : BottomSheetDialogFragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_repository_error, container, false)
+        return inflater.inflate(R.layout.fragment_error, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -28,11 +28,11 @@ class RepositoriesErrorFragment private constructor() : BottomSheetDialogFragmen
     }
 
     companion object {
-        val TAG: String = RepositoriesErrorFragment::class.java.simpleName
+        val TAG: String = ErrorFragment::class.java.simpleName
         const val MESSAGE: String = "message"
 
-        fun newInstance(): RepositoriesErrorFragment {
-            return RepositoriesErrorFragment()
+        fun newInstance(): ErrorFragment {
+            return ErrorFragment()
         }
     }
 }

@@ -22,5 +22,8 @@ character, 1 lowercase character, and 1 number</string>
     <string name="repositories_unknown_error">Unknown error</string>
 
     <!-- Repo detail -->
-
+    <string name="go_back">Go back</string>
+    <string name="go_forward">Go forward</string>
+    <string name="refresh">Refresh</string>
+    <string name="detail_error">Unable to load page</string>
 </resources>
