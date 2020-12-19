@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.ramitsuri.amrock.App
 import com.ramitsuri.amrock.R
 import com.ramitsuri.amrock.auth.AuthResult
+import com.ramitsuri.amrock.data.Result
 import com.ramitsuri.amrock.databinding.FragmentLoginBinding
 import com.ramitsuri.amrock.viewmodel.LoginViewModel
 import kotlinx.coroutines.flow.collect
@@ -72,22 +73,42 @@ class LoginFragment : BaseFragment() {
         }
 
         lifecycleScope.launch {
-            viewModel.login(email, password).collect { authResult ->
-                when (authResult) {
-                    AuthResult.Loading -> {
-                        binding.progress.visibility = View.VISIBLE
+            viewModel.login(email, password).collect { result ->
+                when (result) {
+                    is Result.Loading -> {
+                        showProgress(true)
                     }
-                    AuthResult.Success -> {
-                        binding.progress.visibility = View.GONE
-                        findNavController()
-                            .navigate(R.id.nav_action_repositories)
+                    is Result.Success -> {
+                        showProgress(false)
+                        processLogin(result.data)
                     }
-                    else -> {
-                        binding.progress.visibility = View.GONE
+                    is Result.Error -> {
+                        showProgress(false)
                         invokeLoginHelp(true)
                     }
+
                 }
             }
+        }
+    }
+
+    private fun processLogin(result: AuthResult) {
+        when (result) {
+            AuthResult.Success -> {
+                findNavController()
+                    .navigate(R.id.nav_action_repositories)
+            }
+            else -> {
+                invokeLoginHelp(true)
+            }
+        }
+    }
+
+    private fun showProgress(show: Boolean) {
+        if (show) {
+            binding.progress.visibility = View.VISIBLE
+        } else {
+            binding.progress.visibility = View.GONE
         }
     }
 

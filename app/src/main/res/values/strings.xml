@@ -11,13 +11,15 @@
     <string name="login">Login</string>
     <string name="content_description_logo">Logo</string>
     <string name="help">Help</string>
-    <string name="email_rules">Must be in the format name@example.com</string>
+    <string name="email_rules">Must be in the format name@example.com\n</string>
     <string name="password_rules">Must be at least 9 characters long with at least 1 uppercase
 character, 1 lowercase character, and 1 number</string>
-    <string name="error">Invalid email or password format</string>
+    <string name="login_error">Invalid email or password format</string>
 
     <!-- Repositories -->
     <string name="repositories">Repositories</string>
+    <string name="repositories_error">Error</string>
+    <string name="repositories_unknown_error">Unknown error</string>
 
     <!-- Repo detail -->
 

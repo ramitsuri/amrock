@@ -12,6 +12,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ramitsuri.amrock.App
 import com.ramitsuri.amrock.R
+import com.ramitsuri.amrock.data.Result
 import com.ramitsuri.amrock.databinding.FragmentRepositoriesBinding
 import com.ramitsuri.amrock.entities.RepositoryInfo
 import com.ramitsuri.amrock.ui.adapter.RepositoryAdapter
@@ -77,8 +78,21 @@ class RepositoriesFragment : BaseFragment() {
                 .navigate(R.id.nav_action_logout)
         }
         lifecycleScope.launch {
-            viewModel.getRepositories().collect { repositories ->
-                adapter.update(repositories)
+            viewModel.getRepositories().collect { result ->
+                when (result) {
+                    is Result.Loading -> {
+                        showProgress(true)
+                    }
+                    is Result.Success -> {
+                        showProgress(false)
+                        adapter.update(result.data)
+                    }
+                    is Result.Error -> {
+                        showProgress(false)
+                        showError(result.message)
+                    }
+
+                }
             }
         }
     }
@@ -87,5 +101,23 @@ class RepositoriesFragment : BaseFragment() {
         val action = RepositoriesFragmentDirections.navActionRepoDetail()
         action.repositoryInfo = repositoryInfo
         findNavController().navigate(action)
+    }
+
+    private fun showProgress(show: Boolean) {
+        if (show) {
+            binding.progress.visibility = View.VISIBLE
+        } else {
+            binding.progress.visibility = View.GONE
+        }
+    }
+
+    private fun showError(message: String) {
+        val fragment = RepositoriesErrorFragment.newInstance()
+        val bundle = Bundle()
+        bundle.putString(RepositoriesErrorFragment.MESSAGE, message)
+        fragment.arguments = bundle
+        activity?.supportFragmentManager?.let { supportFragmentManager ->
+            fragment.show(supportFragmentManager, RepositoriesErrorFragment.TAG)
+        }
     }
 }

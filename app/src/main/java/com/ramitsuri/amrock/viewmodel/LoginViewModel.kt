@@ -5,6 +5,7 @@ import com.ramitsuri.amrock.auth.AuthResult
 import com.ramitsuri.amrock.auth.Credentials
 import com.ramitsuri.amrock.auth.LoginManager
 import com.ramitsuri.amrock.data.LoginRepository
+import com.ramitsuri.amrock.data.Result
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.onEach
 
@@ -13,13 +14,18 @@ class LoginViewModel(
     private val loginManager: LoginManager
 ) : ViewModel() {
 
-    fun login(email: String, password: String): Flow<AuthResult> {
+    fun login(email: String, password: String): Flow<Result<AuthResult>> {
         val credentials = Credentials(email, password)
-        return repository.login(credentials).onEach { authResult ->
-            if (authResult == AuthResult.Success) {
-                onLoginSuccess(credentials)
-            } else if (authResult != AuthResult.Loading) {
-                onLoginFailure(Credentials("", ""))
+        return repository.login(credentials).onEach { result ->
+            if (result is Result.Success) {
+                when (result.data) {
+                    AuthResult.Success -> {
+                        onLoginSuccess(credentials)
+                    }
+                    else -> {
+                        onLoginFailure(Credentials("", ""))
+                    }
+                }
             }
         }
     }
