@@ -41,7 +41,5 @@ interface ApiService {
                 .build()
                 .create(ApiService::class.java)
         }
-
-
     }
 }
