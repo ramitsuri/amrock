@@ -1,5 +1,7 @@
 package com.ramitsuri.amrock.auth
 
+import com.ramitsuri.amrock.entities.Credentials
+
 class LocalAuthService(private val validator: AuthValidator) : AuthService {
 
     override suspend fun login(credentials: Credentials): AuthResult {

@@ -2,7 +2,7 @@ package com.ramitsuri.amrock.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.ramitsuri.amrock.auth.AuthResult
-import com.ramitsuri.amrock.auth.Credentials
+import com.ramitsuri.amrock.entities.Credentials
 import com.ramitsuri.amrock.auth.LoginManager
 import com.ramitsuri.amrock.data.LoginRepository
 import com.ramitsuri.amrock.data.Result

@@ -2,7 +2,7 @@ package com.ramitsuri.amrock.data
 
 import com.ramitsuri.amrock.auth.AuthResult
 import com.ramitsuri.amrock.auth.AuthService
-import com.ramitsuri.amrock.auth.Credentials
+import com.ramitsuri.amrock.entities.Credentials
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow

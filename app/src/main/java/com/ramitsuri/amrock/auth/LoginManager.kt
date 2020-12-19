@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.SharedPreferences
 import androidx.security.crypto.EncryptedSharedPreferences
 import androidx.security.crypto.MasterKey
+import com.ramitsuri.amrock.entities.Credentials
 import java.time.Instant
 
 class LoginManager(context: Context) {
