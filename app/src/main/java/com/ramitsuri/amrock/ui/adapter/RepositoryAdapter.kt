@@ -5,10 +5,15 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.ramitsuri.amrock.R
-import com.ramitsuri.amrock.entities.RepositoryInfo
 import com.ramitsuri.amrock.databinding.RepositoryItemBinding
+import com.ramitsuri.amrock.entities.RepositoryInfo
+import com.ramitsuri.amrock.utils.DateTimeHelper
 
-class RepositoryAdapter(private val list: MutableList<RepositoryInfo>) :
+class RepositoryAdapter(
+    private val list: MutableList<RepositoryInfo>,
+    private val dateTimeHelper: DateTimeHelper,
+    private val dateTimeFormat: String
+) :
     RecyclerView.Adapter<RepositoryAdapter.ViewHolder>() {
 
     var onItemClick: ((RepositoryInfo) -> Unit)? = null
@@ -44,7 +49,7 @@ class RepositoryAdapter(private val list: MutableList<RepositoryInfo>) :
 
         fun bind(item: RepositoryInfo, shadeBackground: Boolean) {
             binding.apply {
-                textDate.text = item.date
+                textDate.text = dateTimeHelper.format(item.date, dateTimeFormat)
                 textName.text = item.name
                 textDescription.text = item.description
                 if (shadeBackground) {

@@ -7,6 +7,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.flowOn
+import timber.log.Timber
 
 class RepositoriesRepository(private val api: ApiService) {
 
@@ -28,6 +29,7 @@ class RepositoriesRepository(private val api: ApiService) {
             }
         }.catch {
             emit(Result.error("Network error!"))
+            Timber.w(it)
         }.flowOn(Dispatchers.IO)
     }
 }

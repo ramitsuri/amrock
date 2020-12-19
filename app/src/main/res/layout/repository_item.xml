@@ -39,25 +39,29 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:ellipsize="end"
+        android:maxLines="1"
         android:textSize="@dimen/text_body1"
         android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/textDate"
+        app:layout_constraintHorizontal_bias="0"
         app:layout_constraintStart_toStartOf="@id/guidelineVertical1"
         app:layout_constraintTop_toTopOf="@id/guidelineHorizontal1"
-        app:layout_constraintWidth_percent="0.65"
+        app:layout_constraintWidth_percent="0.73"
         tools:text="Behaviors.js" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/textDate"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:ellipsize="end"
-        android:gravity="end"
+        android:gravity="center"
+        android:maxLines="2"
         android:textSize="@dimen/text_caption"
-        app:layout_constraintBottom_toBottomOf="@id/textName"
+        app:layout_constraintBottom_toBottomOf="@id/guidelineHorizontal2"
         app:layout_constraintEnd_toEndOf="@id/guidelineVertical2"
-        app:layout_constraintTop_toTopOf="@id/textName"
+        app:layout_constraintTop_toTopOf="@id/guidelineHorizontal1"
         app:layout_constraintWidth_percent="0.25"
-        tools:text="12/18/2020" />
+        tools:text="12/18/2020\nat 12:00:00" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/textDescription"
@@ -68,7 +72,7 @@
         android:maxLines="2"
         android:textSize="@dimen/text_body1"
         app:layout_constraintBottom_toTopOf="@id/guidelineHorizontal2"
-        app:layout_constraintEnd_toEndOf="@id/textDate"
+        app:layout_constraintEnd_toEndOf="@id/textName"
         app:layout_constraintStart_toStartOf="@id/textName"
         app:layout_constraintTop_toBottomOf="@id/textName"
         tools:text="Define dynamic page behaviors via HTML attributes" />

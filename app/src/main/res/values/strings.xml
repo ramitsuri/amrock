@@ -20,6 +20,7 @@ character, 1 lowercase character, and 1 number</string>
     <string name="repositories">Repositories</string>
     <string name="repositories_error">Error</string>
     <string name="repositories_unknown_error">Unknown error</string>
+    <string name="date_format">"MM-dd-yyyy\nHH:mm:ss"</string>
 
     <!-- Repo detail -->
     <string name="go_back">Go back</string>

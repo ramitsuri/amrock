@@ -66,7 +66,11 @@ class RepositoriesFragment : BaseFragment() {
     }
 
     private fun setupViews() {
-        val adapter = RepositoryAdapter(mutableListOf())
+        val adapter = RepositoryAdapter(
+            mutableListOf(),
+            App.instance.injector.getDateTimeHelper(),
+            getString(R.string.date_format)
+        )
         adapter.onItemClick = {
             onRepoSelected(it)
         }
