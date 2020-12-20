@@ -39,10 +39,6 @@ class RepoDetailFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (requireLogin()) {
-            navigateToLogin()
-            return
-        }
         setupViews()
     }
 

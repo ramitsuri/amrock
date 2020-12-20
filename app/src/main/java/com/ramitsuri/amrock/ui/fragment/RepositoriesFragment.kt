@@ -25,6 +25,7 @@ class RepositoriesFragment : BaseFragment() {
     private var _binding: FragmentRepositoriesBinding? = null
 
     private val binding get() = _binding!!
+    private var rootView: View? = null
     private lateinit var viewModel: RepositoriesViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,16 +44,18 @@ class RepositoriesFragment : BaseFragment() {
         savedInstanceState: Bundle?
     ): View {
         Timber.i("CreateView")
-        _binding = FragmentRepositoriesBinding.inflate(inflater, container, false)
+        val root = rootView
+        _binding = if (root == null) {
+            FragmentRepositoriesBinding.inflate(inflater, container, false)
+        } else {
+            FragmentRepositoriesBinding.bind(root)
+        }
+        rootView = binding.root
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (requireLogin()) {
-            navigateToLogin()
-            return
-        }
         val factory = App.instance.injector.getRepositoriesViewModelFactory()
         viewModel = ViewModelProvider(this, factory).get(RepositoriesViewModel::class.java)
         setupViews()
@@ -78,6 +81,7 @@ class RepositoriesFragment : BaseFragment() {
         binding.listView.adapter = adapter
 
         binding.btnLogout.setOnClickListener {
+            viewModel.onLogout()
             it.findNavController()
                 .navigate(R.id.nav_action_logout)
         }

@@ -21,6 +21,7 @@ class Injector(context: Context) {
     val loginManager = LoginManager(PrefsCredentialStorage(context))
 
     fun getLoginViewModelFactory() = LoginViewModelFactory(loginRepository, loginManager)
-    fun getRepositoriesViewModelFactory() = RepositoriesViewModelFactory(repositoriesRepository)
+    fun getRepositoriesViewModelFactory() =
+        RepositoriesViewModelFactory(repositoriesRepository, loginManager)
     fun getDateTimeHelper() = DateTimeHelper(ZoneId.systemDefault(), Locale.getDefault())
 }

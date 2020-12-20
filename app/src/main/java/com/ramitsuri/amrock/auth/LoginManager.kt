@@ -2,6 +2,7 @@ package com.ramitsuri.amrock.auth
 
 import com.ramitsuri.amrock.credential.CredentialStorage
 import com.ramitsuri.amrock.entities.Credentials
+import timber.log.Timber
 import java.time.Instant
 
 class LoginManager(private val credentialStorage: CredentialStorage) {
@@ -24,6 +25,7 @@ class LoginManager(private val credentialStorage: CredentialStorage) {
     }
 
     fun requireLogin(): Boolean {
+        Timber.i("Currently logged in: %s", loggedIn)
         return !loggedIn
     }
 

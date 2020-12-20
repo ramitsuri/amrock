@@ -15,8 +15,8 @@ class App : Application(), LifecycleObserver {
     override fun onCreate() {
         super.onCreate()
         instance = this
-        initInjector()
         initLogging()
+        initInjector()
         initLifecycleObserver()
     }
 

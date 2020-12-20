@@ -12,8 +12,14 @@ buildscript {
         material_version = '1.2.1'
         okhttpLogging_version = '4.7.2'
         nav_version = '2.3.2'
+        recycler_version = '1.2.0-beta01'
         retrofit_version = '2.9.0'
         timber_version = '4.7.1'
+
+        // Testing
+        junit_version = '4.13.1'
+        ext_junit_version = '1.1.2'
+        espresso_version = '3.3.0'
     }
 
     repositories {

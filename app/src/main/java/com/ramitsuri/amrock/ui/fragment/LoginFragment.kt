@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -22,6 +23,17 @@ class LoginFragment : BaseFragment() {
 
     private val binding get() = _binding!!
     private lateinit var viewModel: LoginViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        Timber.i("Create")
+        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                exit()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -76,13 +88,16 @@ class LoginFragment : BaseFragment() {
             viewModel.login(email, password).collect { result ->
                 when (result) {
                     is Result.Loading -> {
+                        enableViews(false)
                         showProgress(true)
                     }
                     is Result.Success -> {
+                        enableViews(true)
                         showProgress(false)
                         processLogin(result.data)
                     }
                     is Result.Error -> {
+                        enableViews(true)
                         showProgress(false)
                         invokeLoginHelp(true)
                     }
@@ -110,6 +125,10 @@ class LoginFragment : BaseFragment() {
         } else {
             binding.progress.visibility = View.GONE
         }
+    }
+
+    private fun enableViews(enable: Boolean) {
+        binding.btnLogin.isEnabled = enable
     }
 
     private fun getEmail(): String {
