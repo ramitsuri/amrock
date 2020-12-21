@@ -37,8 +37,8 @@ class PrefsCredentialStorage(context: Context) : CredentialStorage {
     }
 
     companion object {
-        const val PREF_FILE = "normal_file"
-        const val EMAIL = "email"
-        const val PASSWORD = "password"
+        private const val PREF_FILE = "normal_file"
+        private const val EMAIL = "email"
+        private const val PASSWORD = "password"
     }
 }
