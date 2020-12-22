@@ -33,6 +33,8 @@ class LoginFragment : BaseFragment() {
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+        val factory = App.instance.injector.getLoginViewModelFactory()
+        viewModel = ViewModelProvider(this, factory).get(LoginViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -46,8 +48,6 @@ class LoginFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val factory = App.instance.injector.getLoginViewModelFactory()
-        viewModel = ViewModelProvider(this, factory).get(LoginViewModel::class.java)
         setupViews()
     }
 

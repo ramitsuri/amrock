@@ -37,6 +37,8 @@ class RepositoriesFragment : BaseFragment() {
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+        val factory = App.instance.injector.getRepositoriesViewModelFactory()
+        viewModel = ViewModelProvider(this, factory).get(RepositoriesViewModel::class.java)
     }
 
     override fun onCreateView(
@@ -56,8 +58,6 @@ class RepositoriesFragment : BaseFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val factory = App.instance.injector.getRepositoriesViewModelFactory()
-        viewModel = ViewModelProvider(this, factory).get(RepositoriesViewModel::class.java)
         setupViews()
     }
 
