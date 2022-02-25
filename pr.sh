@@ -34,10 +34,10 @@ Help()
    echo "- put the script in the root of your Android project"
    echo "- edit the constants if necessary"
    echo "- install GitHub cli"
-   echo "- create ssh key for GitHub cli"
-   echo "- run gh auth login"
-   echo "- login to github.com, select ssh, select the new ssh key, login with browser"
-   echo "- create personal access token to login (might not be necessary)"
+   echo "- create ssh key for GitHub cli" #(Was not necessary when I tried it again on personal)
+   echo "- run gh auth login" 
+   echo "- login to github.com, select ssh, skip selecting ssh key, login with browser"
+   echo "- create personal access token to login (might not be necessary)" #(Was not necessary when I tried it again on personal)
    echo
    echo "Syntax: ./pr.sh [-l|c|u|b|h]"
    echo "options:"
@@ -84,8 +84,8 @@ LintCheck()
 ############################################################
 SquashCommits()
 {
-   current=$(git symbolic-ref HEAD)
-
+   #current=$(git symbolic-ref HEAD)
+   current=$(git branch --show-current)
    if [ "$#" -ne 1 ]
    then
      against="$REMOTE/$current"
